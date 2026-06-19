@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Visualizador 3D - Móvel Radiola</title>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #f0f0f0; }
+        #info { position: absolute; top: 10px; width: 100%; text-align: center; font-family: sans-serif; pointer-events: none; font-size: 18px; color: #333; }
+    </style>
+</head>
+<body>
+    <div id="info">Móvel Modular (Clique e arraste para girar. Role o scroll para dar zoom)</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script>
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x2a2a2a);
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 120, 220);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0x2a2a2a);
+        document.body.appendChild(renderer.domElement);
+
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.target.set(0, 45, 0);
+        controls.update();
+
+        const light1 = new THREE.DirectionalLight(0xffffff, 0.9);
+        light1.position.set(100, 200, 100);
+        scene.add(light1);
+        const light2 = new THREE.AmbientLight(0x404040, 1.8);
+        scene.add(light2);
+
+        // Materiais
+        const mdfMat = new THREE.MeshLambertMaterial({ color: 0xf5f5f5 }); // Branco Fosco
+        const glassMat = new THREE.MeshLambertMaterial({ color: 0x222222, transparent: true, opacity: 0.6 }); // Vidro Fume
+        const equipMat = new THREE.MeshLambertMaterial({ color: 0x111111 }); // Equipamentos Pretos
+
+        // Array de peças [Largura, Altura, Profundidade, PosX, PosY, PosZ, Material]
+        const parts = [
+            // Módulo Central
+            {w:1.8, h:89, d:45, x:-22.1, y:50.5, z:0, mat:mdfMat}, // Lateral Esq
+            {w:1.8, h:89, d:45, x:22.1, y:50.5, z:0, mat:mdfMat},  // Lateral Dir
+            {w:42.4, h:1.8, d:45, x:0, y:79.1, z:0, mat:mdfMat},   // Tampo da Radiola
+            {w:42.4, h:1.8, d:45, x:0, y:40.9, z:0, mat:mdfMat},   // Base da Gaveta
+            {w:46, h:40, d:0.6, x:0, y:60, z:-22.2, mat:mdfMat},   // Fundo (Costas)
+            {w:42.4, h:15, d:1.8, x:0, y:87.5, z:-21.6, mat:mdfMat},// Borda Traseira (MDF)
+            {w:42.4, h:15, d:0.8, x:0, y:87.5, z:22.1, mat:glassMat},// Borda Frontal (Vidro Temperado)
+            {w:46, h:0.6, d:45, x:0, y:95.3, z:0, mat:glassMat},    // Tampa Basculante Superior (Vidro)
+            // Gaveta de Vinis
+            {w:41.8, h:35.8, d:1.8, x:0, y:60, z:21.6, mat:glassMat}, // Frente (Vidro Fume)
+            {w:36.2, h:1.8, d:40, x:0, y:43.7, z:-0.2, mat:mdfMat},   // Fundo Gaveta
+            {w:1.8, h:20, d:40, x:-19, y:53.7, z:-0.2, mat:mdfMat},   // Lat Gaveta Esq
+            {w:1.8, h:20, d:40, x:19, y:53.7, z:-0.2, mat:mdfMat},    // Lat Gaveta Dir
+            {w:36.2, h:20, d:1.8, x:0, y:53.7, z:-19.3, mat:mdfMat},  // Traseira Gaveta
+            // Pedestal Direito
+            {w:1.8, h:25, d:32, x:23.9, y:17.5, z:0, mat:mdfMat},  // Lateral Esq (elevada pelo rodízio de 5cm)
+            {w:1.8, h:25, d:32, x:49.1, y:17.5, z:0, mat:mdfMat},  // Lateral Dir
+            {w:23.4, h:1.8, d:32, x:36.5, y:5.9, z:0, mat:mdfMat}, // Base do Pedestal
+            {w:23.4, h:1.8, d:32, x:36.5, y:24.1, z:0, mat:mdfMat},// Tampo da Bandeja
+            {w:23.4, h:5, d:1.8, x:36.5, y:27.5, z:15.1, mat:mdfMat}, // Borda Frontal
+            {w:22.8, h:15.8, d:1.8, x:36.5, y:15, z:15.1, mat:mdfMat}, // Frente da Gaveta de Utensílios
+            {w:27, h:20, d:0.6, x:36.5, y:15, z:-15.7, mat:mdfMat},    // Fundo Traseiro do Pedestal
+            // Pedestal Esquerdo
+            {w:1.8, h:25, d:32, x:-23.9, y:17.5, z:0, mat:mdfMat}, // Lateral Dir (elevada pelo rodízio de 5cm)
+            {w:1.8, h:25, d:32, x:-49.1, y:17.5, z:0, mat:mdfMat}, // Lateral Esq
+            {w:23.4, h:1.8, d:32, x:-36.5, y:5.9, z:0, mat:mdfMat}, // Base do Pedestal
+            {w:23.4, h:1.8, d:32, x:-36.5, y:24.1, z:0, mat:mdfMat},// Tampo da Bandeja
+            {w:23.4, h:5, d:1.8, x:-36.5, y:27.5, z:15.1, mat:mdfMat}, // Borda Frontal
+            {w:22.8, h:15.8, d:1.8, x:-36.5, y:15, z:15.1, mat:mdfMat}, // Frente da Gaveta de Utensílios
+            {w:27, h:20, d:0.6, x:-36.5, y:15, z:-15.7, mat:mdfMat},    // Fundo Traseiro do Pedestal
+            // Carrinho do Subwoofer
+            {w:39, h:1.8, d:33, x:0, y:5.9, z:0, mat:mdfMat},      // Base
+            {w:1.8, h:5, d:33, x:-18.6, y:9.3, z:0, mat:mdfMat},   // Borda Esq
+            {w:1.8, h:5, d:33, x:18.6, y:9.3, z:0, mat:mdfMat},    // Borda Dir
+            {w:35.4, h:5, d:1.8, x:0, y:9.3, z:15.6, mat:mdfMat},  // Borda Frontal
+            {w:35.4, h:5, d:1.8, x:0, y:9.3, z:-15.6, mat:mdfMat}, // Borda Traseira
+            // Equipamentos (Representação Visual)
+            {w:40, h:11, d:33, x:0, y:85.5, z:0, mat:equipMat},    // Radiola AT-LP70X
+            {w:28, h:31, d:34, x:0, y:22.3, z:0, mat:equipMat},    // Subwoofer T5
+            {w:21.8, h:39.3, d:29.8, x:-36.5, y:44.65, z:0, mat:equipMat}, // Monitor R2750DB Esq
+            {w:21.8, h:39.3, d:29.8, x:36.5, y:44.65, z:0, mat:equipMat}   // Monitor R2750DB Dir
+        ];
+
+        parts.forEach(p => {
+            const geo = new THREE.BoxGeometry(p.w, p.h, p.d);
+            const mesh = new THREE.Mesh(geo, p.mat);
+            mesh.position.set(p.x, p.y, p.z);
+            // Linhas de contorno para destacar cada pedaço de madeira
+            const edges = new THREE.EdgesGeometry(geo);
+            const line = new THREE.LineSegments(edges, new THREE.LineBasicMaterial({ color: 0x4d3319 }));
+            mesh.add(line);
+            scene.add(mesh);
+        });
+
+        // Chão
+        const floorGeo = new THREE.PlaneGeometry(500, 500);
+        const floorMat = new THREE.MeshLambertMaterial({ color: 0xcccccc });
+        const floor = new THREE.Mesh(floorGeo, floorMat);
+        floor.rotation.x = -Math.PI / 2;
+        floor.position.y = 0;
+        scene.add(floor);
+
+        // Loop de Renderização
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Ajuste de redimensionamento da janela
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>

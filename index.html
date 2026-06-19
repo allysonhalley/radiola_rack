@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Console Modular Radiola</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #121212; color: #e0e0e0; margin: 0; padding: 0; line-height: 1.6; }
+        .header { background-color: #1e1e1e; padding: 30px; text-align: center; border-bottom: 3px solid #ff6b00; }
+        .header h1 { margin: 0; color: #ff6b00; font-size: 2.5em; }
+        .header p { color: #aaa; font-size: 1.2em; }
+        .tabs { display: flex; justify-content: center; background-color: #2c2c2c; flex-wrap: wrap; }
+        .tab-button { background-color: inherit; border: none; outline: none; cursor: pointer; padding: 16px 24px; transition: 0.3s; color: white; font-size: 16px; font-weight: bold; }
+        .tab-button:hover { background-color: #444; }
+        .tab-button.active { background-color: #ff6b00; color: #121212; }
+        .tab-content { display: none; padding: 40px; max-width: 1000px; margin: auto; animation: fadeEffect 1s; }
+        .tab-content.active { display: block; }
+        @keyframes fadeEffect { from {opacity: 0;} to {opacity: 1;} }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; margin-bottom: 30px; background-color: #1e1e1e; }
+        th, td { border: 1px solid #444; padding: 15px; text-align: left; }
+        th { background-color: #333; color: #ff6b00; }
+        tr:nth-child(even) { background-color: #252525; }
+        a.btn { display: inline-block; padding: 12px 24px; background-color: #ff6b00; color: #121212; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 10px; transition: background 0.3s; }
+        a.btn:hover { background-color: #e66000; }
+        iframe { width: 100%; height: 75vh; border: 2px solid #444; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        h2 { color: #ff6b00; border-bottom: 1px solid #444; padding-bottom: 10px; margin-top: 30px; }
+        h3 { color: #fff; margin-top: 25px; }
+        .note { background-color: #2b2b2b; border-left: 4px solid #ff6b00; padding: 15px; margin: 20px 0; border-radius: 4px; }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Console Modular para Sistema de Áudio</h1>
+    <p>Projeto acústico sob medida para Audio-Technica AT-LP70X e Edifier R2750DB/T5</p>
+</div>
+
+<div class="tabs">
+    <button class="tab-button active" onclick="openTab(event, 'Plano')">🏗️ Plano e Estrutura</button>
+    <button class="tab-button" onclick="openTab(event, 'Plantas')">📐 Plantas 2D</button>
+    <button class="tab-button" onclick="openTab(event, 'Corte')">🪚 Lista de Corte</button>
+    <button class="tab-button" onclick="openTab(event, 'Materiais')">🔩 Materiais e Orçamento</button>
+    <button class="tab-button" onclick="openTab(event, 'Arquivos')">📁 Arquivos MaxCut</button>
+    <button class="tab-button" onclick="openTab(event, '3D')">🚀 Maquete 3D</button>
+</div>
+
+<div id="Plano" class="tab-content active">
+    <h2>Lógica do Projeto</h2>
+    <p>Desenvolvemos um móvel de 4 peças 100% modulares e independentes para garantir <strong>zero transferência de vibração</strong> entre o Subwoofer, os Monitores e a Agulha da Radiola.</p>
+    
+    <h3>1. A Torre Central (Radiola e Vinis)</h3>
+    <ul>
+        <li><strong>Vitrine Superior:</strong> A radiola fica protegida por uma "redoma" com parede de MDF ao fundo, parede de vidro na frente e tampa de vidro basculante com amortecedores.</li>
+        <li><strong>Gaveta de Vinis:</strong> Gaveta com frente de vidro temperado projetada milimetricamente para discos LP 12", rodando em corrediças telescópicas de 40cm.</li>
+        <li><strong>Garagem:</strong> Espaço oco inferior livre de contato para abrigar o carrinho do subwoofer.</li>
+    </ul>
+
+    <h3>2. Os Dois Pedestais Laterais (Edifier)</h3>
+    <ul>
+        <li><strong>Efeito Escadinha:</strong> Tampo a 25cm do chão, fazendo os monitores alinharem com precisão estética à radiola central.</li>
+        <li><strong>Bandeja Fixadora:</strong> Bordas de 5cm que abraçam a base da caixa de som, impedindo movimentação pela vibração.</li>
+        <li><strong>Gavetas de Utensílios:</strong> Espaço aproveitado internamente para pequenas gavetas de acessórios em cada pedestal.</li>
+    </ul>
+
+    <h3>3. Base Móvel do Subwoofer</h3>
+    <p>Uma bandeja exclusiva no chão (com rodízios), abraçando o Edifier T5 para descarregar o grave sem tremer o módulo central.</p>
+</div>
+
+<div id="Plantas" class="tab-content">
+    <h2>Rascunhos 2D (Plantas Estruturais)</h2>
+    <p>Esboços arquitetônicos simplificados com cotas em centímetros (cm).</p>
+    <h3>Vista Frontal (Conjunto Completo)</h3>
+    <div style="background-color: #1e1e1e; padding: 20px; border-radius: 8px; border: 1px solid #444; margin-bottom: 30px; overflow-x: auto;">
+        <svg width="600" height="400" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" style="min-width: 600px;">
+          <style>
+            .line { stroke: #555; stroke-width: 2; fill: none; }
+            .box { stroke: #ff6b00; stroke-width: 3; fill: #2c2c2c; }
+            .glass { stroke: #00bcd4; stroke-width: 3; fill: rgba(0, 188, 212, 0.1); }
+            .text { fill: #e0e0e0; font-family: sans-serif; font-size: 16px; font-weight: bold; }
+            .dim { stroke: #888; stroke-width: 1; }
+            .dim-text { fill: #aaa; font-family: monospace; font-size: 14px; }
+          </style>
+
+          <!-- Floor -->
+          <line x1="50" y1="550" x2="750" y2="550" class="line" />
+
+          <!-- Left Pedestal (x:100, w:135) -->
+          <rect x="120" y="525" width="20" height="25" class="line" /> <!-- Caster -->
+          <rect x="195" y="525" width="20" height="25" class="line" /> <!-- Caster -->
+          <rect x="100" y="425" width="135" height="100" class="box" /> <!-- Box -->
+          <text x="135" y="480" class="text">Gaveta</text>
+          <rect x="100" y="400" width="135" height="25" class="box" /> <!-- Border -->
+          <text x="110" y="418" class="text" style="font-size:12px; fill:#ff6b00;">Borda Bandeja</text>
+
+          <!-- Center Module (x:255, w:230) -->
+          <rect x="280" y="525" width="20" height="25" class="line" /> <!-- Caster -->
+          <rect x="440" y="525" width="20" height="25" class="line" /> <!-- Caster -->
+          <rect x="255" y="350" width="230" height="175" class="box" /> <!-- Garage -->
+          <text x="315" y="445" class="text">Subwoofer</text>
+          <rect x="255" y="150" width="230" height="200" class="glass" /> <!-- Drawer -->
+          <text x="320" y="255" class="text" style="fill:#00bcd4;">Gaveta Vinil</text>
+          <rect x="255" y="75" width="230" height="75" class="glass" /> <!-- Dome -->
+          <text x="315" y="118" class="text">Radiola (Topo)</text>
+
+          <!-- Right Pedestal (x:505, w:135) -->
+          <rect x="525" y="525" width="20" height="25" class="line" /> <!-- Caster -->
+          <rect x="600" y="525" width="20" height="25" class="line" /> <!-- Caster -->
+          <rect x="505" y="425" width="135" height="100" class="box" /> <!-- Box -->
+          <text x="540" y="480" class="text">Gaveta</text>
+          <rect x="505" y="400" width="135" height="25" class="box" /> <!-- Border -->
+          <text x="515" y="418" class="text" style="font-size:12px; fill:#ff6b00;">Borda Bandeja</text>
+
+          <!-- Dimensions X -->
+          <line x1="100" y1="580" x2="235" y2="580" class="dim" />
+          <text x="145" y="575" class="dim-text">27 cm</text>
+          <line x1="255" y1="580" x2="485" y2="580" class="dim" />
+          <text x="350" y="575" class="dim-text">46 cm</text>
+          <line x1="505" y1="580" x2="640" y2="580" class="dim" />
+          <text x="550" y="575" class="dim-text">27 cm</text>
+
+          <!-- Dimensions Y -->
+          <text x="660" y="555" class="dim-text">Y=0 (Chão)</text>
+          <line x1="640" y1="525" x2="650" y2="525" class="dim" />
+          <text x="660" y="530" class="dim-text">Y=5cm (Rodízio)</text>
+          <line x1="640" y1="425" x2="650" y2="425" class="dim" />
+          <text x="660" y="430" class="dim-text">Y=25cm (Tampo Cx)</text>
+          <line x1="640" y1="350" x2="650" y2="350" class="dim" />
+          <text x="660" y="355" class="dim-text">Y=40cm (Base Torre)</text>
+          <line x1="640" y1="150" x2="650" y2="150" class="dim" />
+          <text x="660" y="155" class="dim-text">Y=80cm (Radiola)</text>
+          <line x1="640" y1="75" x2="650" y2="75" class="dim" />
+          <text x="660" y="80" class="dim-text">Y=95cm (Tampa Vidro)</text>
+        </svg>
+    </div>
+
+    <h3>Vista Lateral (Corte Transversal Interno)</h3>
+    <div style="background-color: #1e1e1e; padding: 20px; border-radius: 8px; border: 1px solid #444; overflow-x: auto; margin-bottom: 30px;">
+        <svg width="600" height="400" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" style="min-width: 600px;">
+          <style>
+            .line { stroke: #555; stroke-width: 2; fill: none; }
+            .mdf { fill: #ff6b00; stroke: #cc5500; stroke-width: 1; }
+            .mdf-fundo { fill: #b34700; stroke: #883300; stroke-width: 1; }
+            .glass { fill: rgba(0, 188, 212, 0.3); stroke: #00bcd4; stroke-width: 2; }
+            .equip { fill: #111; stroke: #444; stroke-width: 2; }
+            .text { fill: #e0e0e0; font-family: sans-serif; font-size: 13px; font-weight: bold; }
+            .dim { stroke: #888; stroke-width: 1; stroke-dasharray: 4; }
+            .dim-text { fill: #aaa; font-family: monospace; font-size: 14px; }
+          </style>
+
+          <!-- Floor -->
+          <line x1="150" y1="550" x2="650" y2="550" class="line" />
+
+          <!-- Casters -->
+          <rect x="280" y="525" width="20" height="25" fill="#555" />
+          <rect x="420" y="525" width="20" height="25" fill="#555" />
+          
+          <!-- Base MDF 18mm -->
+          <rect x="250" y="341" width="225" height="9" class="mdf" />
+          <text x="485" y="350" class="text">Base (MDF 18mm)</text>
+
+          <!-- Tampo MDF 18mm -->
+          <rect x="250" y="150" width="225" height="9" class="mdf" />
+          <text x="485" y="159" class="text">Tampo (MDF 18mm)</text>
+
+          <!-- Fundo Traseiro 6mm -->
+          <rect x="469" y="159" width="6" height="182" class="mdf-fundo" />
+          <text x="485" y="250" class="text" style="fill:#b34700;">Fundo (6mm)</text>
+
+          <!-- Borda Traseira Radiola 18mm -->
+          <rect x="466" y="75" width="9" height="75" class="mdf" />
+          <text x="485" y="115" class="text">Borda Traseira (18mm)</text>
+
+          <!-- Gaveta Box Interna -->
+          <!-- Fundo Gaveta -->
+          <rect x="260" y="332" width="190" height="9" class="mdf" />
+          <text x="315" y="328" class="text" style="font-size:11px;">Fundo da Gaveta</text>
+          <!-- Traseira Gaveta -->
+          <rect x="441" y="232" width="9" height="100" class="mdf" />
+          <text x="390" y="225" class="text" style="font-size:11px;">Costas Gaveta</text>
+          
+          <!-- Discos de Vinil -->
+          <rect x="280" y="174" width="3" height="158" fill="#111" />
+          <rect x="290" y="174" width="3" height="158" fill="#111" />
+          <rect x="300" y="174" width="3" height="158" fill="#111" />
+          <text x="310" y="220" class="text" style="fill:#888;">Coleção LP</text>
+
+          <!-- Vidros -->
+          <!-- Frente Gaveta -->
+          <rect x="250" y="159" width="4" height="182" class="glass" />
+          <text x="170" y="250" class="text" style="fill:#00bcd4;">Vidro Gaveta</text>
+          <!-- Frente Radiola -->
+          <rect x="250" y="75" width="4" height="75" class="glass" />
+          <!-- Tampa Basculante -->
+          <rect x="250" y="71" width="225" height="4" class="glass" />
+          <text x="270" y="60" class="text" style="fill:#00bcd4;">Tampa Vidro Basculante</text>
+
+          <!-- Equipamentos -->
+          <rect x="270" y="125" width="160" height="25" class="equip" />
+          <text x="325" y="142" class="text">Toca-discos</text>
+          
+          <rect x="280" y="365" width="160" height="150" class="equip" />
+          <text x="325" y="445" class="text">Subwoofer</text>
+
+          <!-- Linhas e Textos de Dimensões -->
+          <line x1="250" y1="580" x2="475" y2="580" class="line" />
+          <text x="290" y="575" class="dim-text">Profundidade = 45 cm</text>
+
+          <!-- Cotas Y -->
+          <line x1="220" y1="550" x2="475" y2="550" class="dim" />
+          <text x="175" y="555" class="dim-text">Y=0</text>
+          
+          <line x1="220" y1="525" x2="475" y2="525" class="dim" />
+          <text x="155" y="530" class="dim-text">Y=5cm</text>
+          
+          <line x1="220" y1="350" x2="475" y2="350" class="dim" />
+          <text x="145" y="355" class="dim-text">Y=40cm</text>
+          
+          <line x1="220" y1="150" x2="475" y2="150" class="dim" />
+          <text x="145" y="155" class="dim-text">Y=80cm</text>
+          
+          <line x1="220" y1="75" x2="475" y2="75" class="dim" />
+          <text x="145" y="80" class="dim-text">Y=95cm</text>
+        </svg>
+    </div>
+
+    <h3>Vista Lateral (Pedestal com Gaveta de Utensílios)</h3>
+    <div style="background-color: #1e1e1e; padding: 20px; border-radius: 8px; border: 1px solid #444; overflow-x: auto; margin-bottom: 30px;">
+        <svg width="600" height="250" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" style="min-width: 600px;">
+          <!-- Floor -->
+          <line x1="150" y1="250" x2="650" y2="250" stroke="#555" stroke-width="2" />
+          
+          <!-- Casters -->
+          <rect x="250" y="225" width="20" height="25" fill="#555" />
+          <rect x="350" y="225" width="20" height="25" fill="#555" />
+
+          <!-- Base MDF -->
+          <rect x="220" y="216" width="160" height="9" fill="#ff6b00" />
+          
+          <!-- Tampo MDF -->
+          <rect x="220" y="125" width="160" height="9" fill="#ff6b00" />
+          
+          <!-- Fundo 6mm Traseiro -->
+          <rect x="377" y="134" width="3" height="82" fill="#b34700" />
+          
+          <!-- Gaveta Utensilios Interna -->
+          <rect x="220" y="134" width="9" height="82" fill="#ff6b00" /> <!-- Frente Falsa -->
+          <rect x="235" y="200" width="140" height="5" fill="#cc5500" /> <!-- Fundo Gaveta -->
+          <text x="260" y="180" fill="#aaa" font-family="sans-serif" font-size="12px">Gaveta</text>
+
+          <!-- Borda Bandeja Frontal -->
+          <rect x="220" y="100" width="9" height="25" fill="#ff6b00" />
+          <rect x="371" y="100" width="9" height="25" fill="#ff6b00" /> <!-- Borda Traseira -->
+
+          <!-- Edifier Monitor -->
+          <rect x="230" y="0" width="140" height="100" fill="#111" stroke="#444" stroke-width="2" />
+          <text x="260" y="50" fill="#fff" font-family="sans-serif" font-size="12px">Edifier R2750DB</text>
+
+          <!-- Cotas -->
+          <line x1="220" y1="280" x2="380" y2="280" stroke="#888" stroke-dasharray="4" />
+          <text x="250" y="275" fill="#aaa" font-family="monospace">Prof = 32 cm</text>
+
+          <line x1="180" y1="250" x2="380" y2="250" stroke="#888" stroke-dasharray="4" />
+          <text x="140" y="255" fill="#aaa" font-family="monospace">Y=0</text>
+          
+          <line x1="180" y1="225" x2="380" y2="225" stroke="#888" stroke-dasharray="4" />
+          <text x="140" y="230" fill="#aaa" font-family="monospace">Y=5cm</text>
+          
+          <line x1="180" y1="125" x2="380" y2="125" stroke="#888" stroke-dasharray="4" />
+          <text x="135" y="130" fill="#aaa" font-family="monospace">Y=25cm</text>
+          
+          <line x1="180" y1="100" x2="380" y2="100" stroke="#888" stroke-dasharray="4" />
+          <text x="135" y="105" fill="#aaa" font-family="monospace">Y=30cm</text>
+        </svg>
+    </div>
+
+    <h3>Vista Lateral (Carrinho do Subwoofer)</h3>
+    <div style="background-color: #1e1e1e; padding: 20px; border-radius: 8px; border: 1px solid #444; overflow-x: auto;">
+        <svg width="600" height="250" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" style="min-width: 600px;">
+          <!-- Floor -->
+          <line x1="150" y1="250" x2="650" y2="250" stroke="#555" stroke-width="2" />
+          
+          <!-- Casters -->
+          <rect x="250" y="225" width="20" height="25" fill="#555" />
+          <rect x="380" y="225" width="20" height="25" fill="#555" />
+
+          <!-- Base MDF (Y=5 to 6.8) -->
+          <rect x="220" y="216" width="195" height="9" fill="#ff6b00" />
+          <text x="430" y="225" fill="#e0e0e0" font-family="sans-serif" font-size="12px">Base (MDF 18mm)</text>
+          
+          <!-- Borda Traseira & Frontal -->
+          <rect x="220" y="191" width="9" height="25" fill="#ff6b00" />
+          <rect x="406" y="191" width="9" height="25" fill="#ff6b00" />
+          
+          <!-- Subwoofer Edifier T5 -->
+          <rect x="235" y="36" width="160" height="180" fill="#111" stroke="#444" stroke-width="2" />
+          <text x="260" y="120" fill="#fff" font-family="sans-serif" font-size="14px" font-weight="bold">Subwoofer T5</text>
+
+          <!-- Cotas -->
+          <line x1="220" y1="280" x2="415" y2="280" stroke="#888" stroke-dasharray="4" />
+          <text x="270" y="275" fill="#aaa" font-family="monospace">Prof = 39 cm</text>
+
+          <line x1="180" y1="250" x2="415" y2="250" stroke="#888" stroke-dasharray="4" />
+          <text x="140" y="255" fill="#aaa" font-family="monospace">Y=0</text>
+          
+          <line x1="180" y1="225" x2="415" y2="225" stroke="#888" stroke-dasharray="4" />
+          <text x="140" y="230" fill="#aaa" font-family="monospace">Y=5cm</text>
+          
+          <line x1="180" y1="216" x2="415" y2="216" stroke="#888" stroke-dasharray="4" />
+          <text x="130" y="210" fill="#aaa" font-family="monospace">Y=6.8cm</text>
+          
+          <line x1="180" y1="191" x2="415" y2="191" stroke="#888" stroke-dasharray="4" />
+          <text x="125" y="195" fill="#aaa" font-family="monospace">Y=11.8cm</text>
+        </svg>
+    </div>
+</div>
+
+<div id="Corte" class="tab-content">
+    <h2>Lista de Corte Simplificada</h2>
+    <div class="note"><strong>Material Base:</strong> MDF 18mm Branco Fosco TX (Duratex ou Arauco). Fundos em MDF 6mm.</div>
+    
+    <h3>Módulo Central</h3>
+    <table>
+        <tr><th>Peça</th><th>Qtd</th><th>Comprimento</th><th>Largura</th></tr>
+        <tr><td>Laterais da Torre</td><td>2</td><td>890 mm</td><td>450 mm</td></tr>
+        <tr><td>Tampo Superior (Radiola)</td><td>1</td><td>424 mm</td><td>450 mm</td></tr>
+        <tr><td>Base do Vão da Gaveta</td><td>1</td><td>424 mm</td><td>450 mm</td></tr>
+        <tr><td>Borda Traseira (Radiola)</td><td>1</td><td>424 mm</td><td>150 mm</td></tr>
+        <tr><td>Fundo do Vão (Costas - 6mm)</td><td>1</td><td>460 mm</td><td>400 mm</td></tr>
+    </table>
+
+    <h3>Pedestais Laterais com Gaveta (2x)</h3>
+    <table>
+        <tr><th>Peça</th><th>Qtd</th><th>Comprimento</th><th>Largura</th></tr>
+        <tr><td>Laterais do Pedestal</td><td>4</td><td>250 mm</td><td>320 mm</td></tr>
+        <tr><td>Tampo e Base do Pedestal</td><td>4</td><td>234 mm</td><td>320 mm</td></tr>
+        <tr><td>Borda Frontal (Bandeja)</td><td>2</td><td>234 mm</td><td>50 mm</td></tr>
+        <tr><td>Frente Falsa da Gaveta</td><td>2</td><td>228 mm</td><td>158 mm</td></tr>
+    </table>
+    <p><em>(Veja a lista completa no arquivo do MaxCut na aba de Arquivos).</em></p>
+</div>
+
+<div id="Materiais" class="tab-content">
+    <h2>Guia de Ferragens e Orçamento</h2>
+    
+    <h3>Cálculo Exato de Parafusos</h3>
+    <table>
+        <tr><th>Tipo de Fixador</th><th>Aplicação</th><th>Quantidade Estimada</th></tr>
+        <tr><td>Parafuso 4,0 x 40mm (Flangeado)</td><td>Estrutura Principal (Unir as chapas de 18mm)</td><td>93 unidades (Compre 200)</td></tr>
+        <tr><td>Parafuso 4,0 x 16mm (Panela)</td><td>Corrediças, Rodízios, Dobradiças, Fundos de 6mm</td><td>170 unidades (Compre 250)</td></tr>
+    </table>
+
+    <h3>Lista de Ferragens</h3>
+    <ul>
+        <li><strong>Corrediças Telescópicas:</strong> 1 par de 40cm (p/ vinis) e 2 pares de 30cm (p/ utensílios).</li>
+        <li><strong>Rodízios de Silicone Gel:</strong> 16 unidades (8 com freio, 8 sem freio) de 5cm de altura.</li>
+        <li><strong>Tampa Superior:</strong> 2 Pistões a Gás 40N + 2 Dobradiças "Boca de Jacaré" para vidro.</li>
+        <li><strong>Gaveta Central (Fixação e Puxador):</strong> 4 cantoneiras "L". Nos 2 furos superiores do vidro (a 20cm de altura), utilize <strong>Puxadores tipo Botão/Cilindro</strong> passantes. Eles vão fixar o vidro na madeira e servir de apoio para puxar a gaveta, transferindo a força para o MDF e evitando efeito alavanca no vidro!</li>
+        <li><strong>Dica Pró:</strong> Cola PVA Extra Forte ou Adesivo PU Veda Calha nas junções de madeira para eliminar ressonância.</li>
+    </ul>
+
+    <h3>Orçamento Estimado (Faça Você Mesmo)</h3>
+    <div class="note">Valores médios para compra de material cortado (estilo IKEA) para montagem própria.</div>
+    <table>
+        <tr><th>Categoria</th><th>Valor Estimado</th></tr>
+        <tr><td>MDF 18mm Branco TX + MDF 6mm + Cortes (Arauco/Duratex)</td><td>R$ 530,00 a R$ 820,00</td></tr>
+        <tr><td>Ferragens (Rodízios, Corrediças, Parafusos, etc)</td><td>R$ 370,00 a R$ 470,00</td></tr>
+        <tr><td>Vidro Temperado Lapidado (Tampa, Parede Frontal, Gaveta)</td><td>R$ 150,00 a R$ 250,00</td></tr>
+        <tr><td><strong>CUSTO TOTAL APROXIMADO</strong></td><td><strong>R$ 1.050,00 a R$ 1.540,00</strong></td></tr>
+    </table>
+</div>
+
+<div id="Arquivos" class="tab-content">
+    <h2>Download dos Arquivos do Projeto</h2>
+    <p>Com este arquivo, você não precisa digitar peça por peça na madeireira. Basta importar direto no software MaxCut.</p>
+    <a href="importacao_maxcut_radiola.csv" class="btn" download>⬇️ Baixar CSV (Importação MaxCut)</a>
+</div>
+
+<div id="3D" class="tab-content" style="max-width: 1200px;">
+    <h2>Maquete 3D Virtual</h2>
+    <p>O modelo abaixo carrega em tempo real. Você pode <strong>clicar e arrastar para girar</strong> e <strong>usar o scroll do mouse para dar zoom</strong>.</p>
+    <iframe src="visualizador_3d.html"></iframe>
+</div>
+
+<script>
+function openTab(evt, tabName) {
+    var i, tabcontent, tabbuttons;
+    tabcontent = document.getElementsByClassName("tab-content");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].classList.remove("active");
+    }
+    tabbuttons = document.getElementsByClassName("tab-button");
+    for (i = 0; i < tabbuttons.length; i++) {
+        tabbuttons[i].classList.remove("active");
+    }
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+}
+</script>
+
+</body>
+</html>
