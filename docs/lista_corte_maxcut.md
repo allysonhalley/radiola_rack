@@ -16,13 +16,14 @@
 *(Nota: A parede frontal da radiola será de Vidro Temperado na medida exata de 424 x 150 mm, e não MDF. Peça na vidraçaria).*
 
 ## 2. Gaveta de Vinis (Caixa Interna)
-*Nota: A frente da gaveta será uma moldura para receber o vidro incolor.*
+*Nota: A frente da gaveta será uma **MOLDURA VAZADA** recortada pelo marceneiro (borda de 5 a 7cm). O vidro temperado menor será colado/embutido por trás dessa moldura.*
 | Peça | Qtd | Comprimento (mm) | Largura (mm) | Material |
 | :--- | :--- | :--- | :--- | :--- |
-| Frente (Moldura) | 1 | 418 | 358 | MDF 18mm |
+| Frente da Gaveta (MDF Vazado) | 1 | 418 | 358 | MDF 18mm |
 | Fundo da Gaveta | 1 | 362 | 400 | MDF 18mm |
 | Laterais da Gaveta | 2 | 400 | 200 | MDF 18mm |
 | Traseira da Gaveta | 1 | 362 | 200 | MDF 18mm |
+*(Vidro Temperado da Gaveta: Encomendar na vidraçaria uma chapa de aprox. 330 x 280 mm para colar atrás do recorte da moldura).*
 
 ## 3. Pedestais Laterais (Com Gaveta e Rodízios - x2 unidades)
 *Mesma altura de antes, porém com base inferior e espaço interno para uma gaveta de utensílios.*
