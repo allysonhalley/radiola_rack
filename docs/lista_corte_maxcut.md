@@ -33,10 +33,10 @@
 | Tampo da Bandeja | 2 | 234 | 320 | MDF 18mm |
 | Base Inferior do Pedestal | 2 | 234 | 320 | MDF 18mm |
 | Borda Frontal (Bandeja) | 2 | 234 | 50 | MDF 18mm |
-| Fundo Traseiro do Pedestal | 2 | 270 | 200 | MDF 6mm |
-| Frente Falsa da Gaveta | 2 | 228 | 158 | MDF 18mm |
-| Laterais Internas Gaveta | 4 | 300 | 120 | MDF 18mm |
-| Frente/Traseira Internas Gaveta | 4 | 172 | 120 | MDF 18mm |
+| Fundo Traseiro do Pedestal | 2 | 270 | 150 | MDF 6mm |
+| Frente Falsa da Gaveta | 2 | 228 | 110 | MDF 18mm |
+| Laterais Internas Gaveta | 4 | 300 | 80 | MDF 18mm |
+| Frente/Traseira Internas Gaveta | 4 | 172 | 80 | MDF 18mm |
 | Fundo da Gaveta Utensílios | 2 | 208 | 300 | MDF 6mm |
 
 ## 4. Carrinho do Subwoofer (Base Móvel)
