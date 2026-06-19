@@ -2,7 +2,7 @@
 
 Bem-vindo ao repositório do **Radiola Rack**, um projeto open-source de marcenaria inteligente e design paramétrico criado para audiófilos e colecionadores de discos de vinil.
 
-![Conceito Radiola Rack](assets/render_realista_radiola_1781831823476.png)
+![Conceito Radiola Rack](assets/radiola_rack_realista_v2.png)
 
 ## 💡 Motivação do Projeto
 
